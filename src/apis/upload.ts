@@ -37,7 +37,7 @@ export async function getPresignedUrl(
 export async function putFileToS3(presignedUrl: string, file: File): Promise<void> {
   await axios.put(presignedUrl, file, {
     headers: { 'Content-Type': file.type || 'application/octet-stream' },
-    timeout: 120_000,
+    timeout: 240_000,
   })
 }
 
