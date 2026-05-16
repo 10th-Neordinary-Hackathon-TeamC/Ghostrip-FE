@@ -34,10 +34,7 @@ export function useSearch(mapRef: React.RefObject<kakao.maps.Map | null>) {
 
           const bounds = new window.kakao.maps.LatLngBounds();
           searchResults.forEach((place) => {
-            const pos = new window.kakao.maps.LatLng(
-              parseFloat(place.y),
-              parseFloat(place.x)
-            );
+            const pos = new window.kakao.maps.LatLng(parseFloat(place.y), parseFloat(place.x));
             const marker = new window.kakao.maps.Marker({
               position: pos,
               map: mapRef.current!,

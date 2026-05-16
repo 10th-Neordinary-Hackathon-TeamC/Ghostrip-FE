@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-import { DEFAULT_LAT, DEFAULT_LNG, DEFAULT_LEVEL } from '../../../constants';
+import { DEFAULT_LAT, DEFAULT_LNG, DEFAULT_LEVEL } from '@/constants';
 
 export function useKakaoMap() {
   const mapContainerRef = useRef<HTMLDivElement>(null);
@@ -25,8 +25,7 @@ export function useKakaoMap() {
       map,
     });
     infoWindowRef.current = new window.kakao.maps.InfoWindow({
-      content:
-        '<div style="padding:6px 10px;font-size:13px;white-space:nowrap;">📍 내 위치</div>',
+      content: '<div style="padding:6px 10px;font-size:13px;white-space:nowrap;">📍 내 위치</div>',
     });
     infoWindowRef.current.open(map, myMarkerRef.current);
 
@@ -34,7 +33,7 @@ export function useKakaoMap() {
     const baseLevel = map.getLevel();
 
     resizeHandlerRef.current = () => {
-      (map as any).relayout();
+      (map as kakao.maps.Map & { relayout: () => void }).relayout();
       const ratio = window.innerWidth / baseWidth;
       const levelDelta = Math.round(Math.log2(ratio));
       map.setLevel(Math.min(14, Math.max(1, baseLevel - levelDelta)));
@@ -61,8 +60,7 @@ export function useKakaoMap() {
       map: mapRef.current,
     });
     infoWindowRef.current = new window.kakao.maps.InfoWindow({
-      content:
-        '<div style="padding:6px 10px;font-size:13px;white-space:nowrap;">📍 내 위치</div>',
+      content: '<div style="padding:6px 10px;font-size:13px;white-space:nowrap;">📍 내 위치</div>',
     });
     infoWindowRef.current.open(mapRef.current, myMarkerRef.current);
   }, []);
@@ -83,10 +81,7 @@ export function useKakaoMap() {
             // 2단계: 고정밀 위치로 마커 갱신
             navigator.geolocation.getCurrentPosition(
               (accurate) => {
-                updateMyLocation(
-                  accurate.coords.latitude,
-                  accurate.coords.longitude
-                );
+                updateMyLocation(accurate.coords.latitude, accurate.coords.longitude);
               },
               () => {},
               { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }

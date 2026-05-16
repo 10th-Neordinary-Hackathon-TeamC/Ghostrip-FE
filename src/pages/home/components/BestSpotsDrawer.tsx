@@ -1,10 +1,10 @@
-import { useRef, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import type { BestSpotItem } from '../../../apis/spot'
-import { useBestSpots } from '../hooks/useBestSpots'
+import { useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import type { BestSpotItem } from '@/apis/spot';
+import { useBestSpots } from '@/pages/home/hooks/useBestSpots';
 
 function CompactCard({ spot, rank }: { spot: BestSpotItem; rank: number }) {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   return (
     <div className="drawer-compact-card" onClick={() => navigate(`/spots/${spot.id}`)}>
       <div className="drawer-compact-img-wrap">
@@ -17,11 +17,11 @@ function CompactCard({ spot, rank }: { spot: BestSpotItem; rank: number }) {
       </div>
       <p className="drawer-compact-name">{spot.name}</p>
     </div>
-  )
+  );
 }
 
 function GridCard({ spot, rank }: { spot: BestSpotItem; rank: number }) {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   return (
     <div className="drawer-grid-card" onClick={() => navigate(`/spots/${spot.id}`)}>
       <div className="drawer-grid-img-wrap">
@@ -36,23 +36,23 @@ function GridCard({ spot, rank }: { spot: BestSpotItem; rank: number }) {
         <p className="drawer-grid-name">{spot.name}</p>
       </div>
     </div>
-  )
+  );
 }
 
 export function BestSpotsDrawer() {
-  const [isExpanded, setIsExpanded] = useState(false)
-  const touchStartY = useRef(0)
-  const { spots, isLoading } = useBestSpots()
+  const [isExpanded, setIsExpanded] = useState(false);
+  const touchStartY = useRef(0);
+  const { spots, isLoading } = useBestSpots();
 
   const handleTouchStart = (e: React.TouchEvent) => {
-    touchStartY.current = e.touches[0].clientY
-  }
+    touchStartY.current = e.touches[0].clientY;
+  };
 
   const handleTouchEnd = (e: React.TouchEvent) => {
-    const deltaY = e.changedTouches[0].clientY - touchStartY.current
-    if (deltaY < -60) setIsExpanded(true)
-    if (deltaY > 60) setIsExpanded(false)
-  }
+    const deltaY = e.changedTouches[0].clientY - touchStartY.current;
+    if (deltaY < -60) setIsExpanded(true);
+    if (deltaY > 60) setIsExpanded(false);
+  };
 
   return (
     <div
@@ -65,14 +65,7 @@ export function BestSpotsDrawer() {
         {isExpanded ? (
           <div id="drawer-full-header">
             <button id="drawer-back-btn" onClick={() => setIsExpanded(false)}>
-              <svg
-                width="22"
-                height="22"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                viewBox="0 0 24 24"
-              >
+              <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                 <path d="M15 18l-6-6 6-6" />
               </svg>
             </button>
@@ -109,5 +102,6 @@ export function BestSpotsDrawer() {
         </div>
       </div>
     </div>
-  )
+  );
 }
+

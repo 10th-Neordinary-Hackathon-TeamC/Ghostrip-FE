@@ -1,7 +1,7 @@
 import { type KeyboardEvent, useState } from 'react';
 
-import { BEST_SPOTS } from '../../../constants';
-import type { PlaceResult } from '../hooks/useSearch';
+import { BEST_SPOTS } from '@/constants';
+import type { PlaceResult } from '@/pages/home/hooks/useSearch';
 
 interface SearchScreenProps {
   results: PlaceResult[];
@@ -44,14 +44,7 @@ export default function SearchScreen({
     <div id="search-screen">
       <div id="search-header">
         <button id="back-btn" onClick={handleClose}>
-          <svg
-            width="22"
-            height="22"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2.5"
-            viewBox="0 0 24 24"
-          >
+          <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
             <path d="M15 18l-6-6 6-6" />
           </svg>
         </button>
@@ -66,14 +59,7 @@ export default function SearchScreen({
             autoFocus
           />
           <button id="search-btn" onClick={() => handleSearch(keyword)}>
-            <svg
-              width="18"
-              height="18"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-            >
+            <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
               <circle cx="11" cy="11" r="8" />
               <path d="m21 21-4.35-4.35" />
             </svg>
@@ -87,11 +73,7 @@ export default function SearchScreen({
             <p className="section-title">최근 베스트</p>
             <div id="best-list">
               {BEST_SPOTS.map((spot) => (
-                <div
-                  key={spot.id}
-                  className="best-item"
-                  onClick={() => handleSearch(spot.name)}
-                >
+                <div key={spot.id} className="best-item" onClick={() => handleSearch(spot.name)}>
                   <span className="best-item-num">{spot.id}</span>
                   <span className="best-item-text">{spot.name}</span>
                 </div>
@@ -104,16 +86,10 @@ export default function SearchScreen({
                 <div id="recent-list">
                   {recentSearches.map((kw) => (
                     <div key={kw} className="recent-item">
-                      <span
-                        className="recent-item-text"
-                        onClick={() => handleSearch(kw)}
-                      >
+                      <span className="recent-item-text" onClick={() => handleSearch(kw)}>
                         {kw}
                       </span>
-                      <button
-                        className="delete-btn"
-                        onClick={() => onDeleteRecent(kw)}
-                      >
+                      <button className="delete-btn" onClick={() => onDeleteRecent(kw)}>
                         <svg
                           width="16"
                           height="16"
@@ -146,9 +122,7 @@ export default function SearchScreen({
                   }}
                 >
                   <div className="result-name">{place.place_name}</div>
-                  <div className="result-address">
-                    {place.road_address_name || place.address_name}
-                  </div>
+                  <div className="result-address">{place.road_address_name || place.address_name}</div>
                 </div>
               ))
             )}
