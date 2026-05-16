@@ -14,7 +14,10 @@ function mapFearLevelToHorrorIndex(fearLevel: number): number {
 }
 
 function toGhostSpot(dto: SpotDetailDto): GhostSpot {
-  const imageUrls = (dto.spotImageList ?? []).map((img) => img.imageUrl).filter(Boolean)
+  const imageUrls = [...(dto.spotImageList ?? [])]
+    .sort((a, b) => a.spotImageId - b.spotImageId)
+    .map((img) => img.imageUrl)
+    .filter(Boolean)
 
   return {
     id: String(dto.spotId),

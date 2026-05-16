@@ -67,7 +67,7 @@ export default function SpotPage() {
 
           <HorrorStars level={spot.horrorIndex} />
 
-          <ImageGallery images={spot.galleryImages} spotName={spot.name} />
+          <ImageGallery key={spot.id} images={spot.galleryImages} spotName={spot.name} />
 
           <RelatedContentSection ref={relatedRef} items={relatedContents} />
 

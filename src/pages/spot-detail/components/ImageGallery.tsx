@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Images, Plus, X } from 'lucide-react'
 
 const PREVIEW_COUNT = 3
@@ -8,11 +8,17 @@ interface ImageGalleryProps {
   spotName: string
 }
 
-export function ImageGallery({ images: initialImages, spotName }: ImageGalleryProps) {
+export function ImageGallery({ images: serverImages, spotName }: ImageGalleryProps) {
   const fileInputRef = useRef<HTMLInputElement>(null)
-  const [images, setImages] = useState(initialImages)
+  const [uploadedImages, setUploadedImages] = useState<string[]>([])
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
   const [showAllGallery, setShowAllGallery] = useState(false)
+
+  useEffect(() => {
+    setUploadedImages([])
+  }, [serverImages])
+
+  const images = [...serverImages, ...uploadedImages]
 
   const previewImages = images.slice(0, PREVIEW_COUNT)
   const fourthImage = images[PREVIEW_COUNT]
@@ -23,7 +29,7 @@ export function ImageGallery({ images: initialImages, spotName }: ImageGalleryPr
     if (!files?.length) return
 
     const newUrls = Array.from(files).map((file) => URL.createObjectURL(file))
-    setImages((prev) => [...prev, ...newUrls])
+    setUploadedImages((prev) => [...prev, ...newUrls])
     e.target.value = ''
     // TODO(API): POST /spots/:spotId/gallery-images multipart 업로드
   }
