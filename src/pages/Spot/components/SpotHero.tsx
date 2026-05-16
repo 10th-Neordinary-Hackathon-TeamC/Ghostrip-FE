@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { ChevronLeft, Flame, Heart } from 'lucide-react'
+import { ChevronLeft, Flame, Heart, Images } from 'lucide-react'
 import type { GhostSpot } from '../../../types/spot'
 
 interface SpotHeroProps {
@@ -44,6 +44,15 @@ export function SpotHero({ spot }: SpotHeroProps) {
           공포 명소 TOP 10
         </span>
       </div>
+
+      {spot.galleryImages.length > 0 && (
+        <div className="absolute right-4 bottom-4">
+          <span className="flex items-center gap-1.5 rounded-full bg-black/60 px-3 py-1.5 text-xs text-gray-300 backdrop-blur-sm">
+            <Images size={12} />
+            +{spot.galleryImages.length}
+          </span>
+        </div>
+      )}
     </div>
   )
 }

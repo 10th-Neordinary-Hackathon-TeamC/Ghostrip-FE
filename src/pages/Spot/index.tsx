@@ -4,6 +4,8 @@ import type { GhostSpot, SpotComment } from '../../types/spot'
 import { EntryStatus } from './components/EntryStatus'
 import { HorrorStars } from './components/HorrorStars'
 import { SpotCommentsSection } from './components/SpotCommentsSection'
+import { ImageGallery } from './components/ImageGallery'
+import { RelatedContentSection } from './components/RelatedContentSection'
 import { SpotDescription } from './components/SpotDescription'
 import { SpotHero } from './components/SpotHero'
 import { SpotInfo } from './components/SpotInfo'
@@ -43,6 +45,12 @@ export default function SpotPage({
         </div>
 
         <SpotDescription spot={displaySpot} />
+
+        {displaySpot.galleryImages.length > 0 && (
+          <ImageGallery images={displaySpot.galleryImages} spotName={displaySpot.name} />
+        )}
+
+        <RelatedContentSection />
 
         <SpotCommentsSection
           comments={comments}
