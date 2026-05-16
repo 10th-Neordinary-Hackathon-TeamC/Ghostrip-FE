@@ -1,35 +1,44 @@
-import { useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import { DUMMY_SPOT } from '../../constants/spot'
+import { useState } from 'react'
+
+import { useRecentSearches } from '@/hooks/useRecentSearches'
+import SearchBar from './components/SearchBar'
+import SearchScreen from './components/SearchScreen'
+import { useKakaoMap } from './hooks/useKakaoMap'
+import { useSearch } from './hooks/useSearch'
 
 export default function HomePage() {
-  useEffect(() => {
-    const base = import.meta.env.VITE_API_BASE_URL
-    if (!base) return
+  const [isSearchOpen, setIsSearchOpen] = useState(false)
 
-    fetch(`${base}health`)
-      .then((res) => {
-        if (res.ok) {
-          console.log('[HealthCheck] API 서버 정상:', res.status)
-        } else {
-          console.error('[HealthCheck] API 서버 응답 오류:', res.status, res.statusText)
-        }
-      })
-      .catch((err) => {
-        console.error('[HealthCheck] API 서버 연결 실패:', err.message)
-      })
-  }, [])
+  const { mapContainerRef, mapRef } = useKakaoMap()
+  const { results, search, focusPlace } = useSearch(mapRef)
+  const { recentSearches, save, remove } = useRecentSearches()
+
+  const handleSearch = (keyword: string) => {
+    save(keyword)
+    search(keyword)
+  }
 
   return (
-    <div className="mx-auto flex min-h-screen max-w-[360px] flex-col items-center justify-center gap-6 bg-spot-bg px-4">
-      <h1 className="text-2xl font-semibold text-white">Ghostrip</h1>
-      <p className="text-center text-sm text-spot-muted">공포 명소 탐험 플랫폼</p>
-      <Link
-        to={`/spots/${DUMMY_SPOT.id}`}
-        className="rounded-xl bg-primary px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-primary/90"
-      >
-        {DUMMY_SPOT.name} 상세 보기
-      </Link>
-    </div>
+    <>
+      <div id="map" ref={mapContainerRef} />
+
+      <div id="main-overlay">
+        <SearchBar onOpen={() => setIsSearchOpen(true)} />
+      </div>
+
+      {isSearchOpen && (
+        <SearchScreen
+          results={results}
+          recentSearches={recentSearches}
+          onSearch={handleSearch}
+          onFocusPlace={(i) => {
+            focusPlace(i)
+            setIsSearchOpen(false)
+          }}
+          onClose={() => setIsSearchOpen(false)}
+          onDeleteRecent={remove}
+        />
+      )}
+    </>
   )
 }
