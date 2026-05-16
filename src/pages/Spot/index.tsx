@@ -41,12 +41,13 @@ export default function SpotPage({
   }
 
   return (
-    <div className="mx-auto min-h-screen max-w-[360px] bg-spot-bg">
-      <SpotPageHeader />
-      <SpotVisual spot={displaySpot} />
-      <SpotDetailCard spot={displaySpot} onMoreLegend={scrollToRelated} />
+    <div className="flex min-h-screen justify-center bg-spot-bg">
+      <div className="w-full max-w-[360px] min-h-screen">
+        <SpotPageHeader />
+        <SpotVisual spot={displaySpot} />
+        <SpotDetailCard spot={displaySpot} onMoreLegend={scrollToRelated} />
 
-      <div className="space-y-5 px-4 pb-10 pt-2">
+        <div className="space-y-5 px-4 pb-10 pt-2">
         <EntryStatus isAccessible={displaySpot.isAccessible} />
 
         <section className="rounded-xl border border-primary/30 bg-spot-surface/80 p-4">
@@ -69,6 +70,7 @@ export default function SpotPage({
           onSubmit={handleSubmit}
           onLike={handleLike}
         />
+        </div>
       </div>
     </div>
   )

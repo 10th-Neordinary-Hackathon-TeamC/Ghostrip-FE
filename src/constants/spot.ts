@@ -6,7 +6,7 @@ export const HORROR_COLORS = ['', '#ADABAA', '#787776', '#EF4444', '#7F1C1D', '#
 
 /** UI 표시용 — API 연동 시 GhostSpot 필드로 이전 */
 export const SPOT_DISPLAY_META = {
-  category: '살묵지',
+  category: '곤지암',
   rating: 4.5,
 } as const
 
