@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
 import { useRecentSearches } from '@/hooks/useRecentSearches'
+import { BestSpotsDrawer } from './components/BestSpotsDrawer'
 import SearchBar from './components/SearchBar'
 import SearchScreen from './components/SearchScreen'
 import { useKakaoMap } from './hooks/useKakaoMap'
@@ -25,6 +26,8 @@ export default function HomePage() {
       <div id="main-overlay">
         <SearchBar onOpen={() => setIsSearchOpen(true)} />
       </div>
+
+      <BestSpotsDrawer />
 
       {isSearchOpen && (
         <SearchScreen

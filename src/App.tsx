@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import HomePage from './pages/home';
+import HomePage from './pages/Home';
 import NotFoundPage from './pages/NotFound';
 import SpotPage from './pages/spot-detail';
 
