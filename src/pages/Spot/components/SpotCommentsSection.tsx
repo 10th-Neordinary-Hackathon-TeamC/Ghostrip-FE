@@ -1,4 +1,5 @@
-import { MessageCircle, Send } from 'lucide-react'
+import { useState } from 'react'
+import { Send } from 'lucide-react'
 import type { SpotComment } from '../../../types/spot'
 import { CommentCard } from './CommentCard'
 
@@ -11,7 +12,6 @@ interface SpotCommentsSectionProps {
   onLike: (id: string) => void
 }
 
-// TODO(API): comments·likes는 부모(SpotPage + useSpotComments)에서 API fetch/mutation 후 props로 전달
 export function SpotCommentsSection({
   comments,
   newComment,
@@ -20,41 +20,19 @@ export function SpotCommentsSection({
   onSubmit,
   onLike,
 }: SpotCommentsSectionProps) {
+  const [showForm, setShowForm] = useState(false)
+
+  const handleSubmit = () => {
+    if (!newComment.trim()) return
+    onSubmit()
+    setShowForm(false)
+  }
+
   return (
-    <div className="space-y-4">
-      <div className="flex items-center justify-between">
-        <h2 className="flex items-center gap-2 text-base text-white">
-          <MessageCircle size={16} className="text-purple-400" />
-          방문 후기
-        </h2>
-        <span className="text-xs text-gray-500">{comments.length}개</span>
-      </div>
+    <section className="space-y-4 pb-4">
+      <h2 className="text-base font-semibold text-white">방문 후기</h2>
 
-      <div className="flex gap-2">
-        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gray-800 text-base">
-          🌙
-        </div>
-        <div className="flex flex-1 gap-2">
-          <input
-            type="text"
-            value={newComment}
-            onChange={(e) => onNewCommentChange(e.target.value)}
-            onKeyDown={(e) => e.key === 'Enter' && onSubmit()}
-            placeholder="방문 후기를 남겨보세요..."
-            className="flex-1 rounded-xl border border-gray-700 bg-gray-900 px-4 py-2.5 text-sm text-white placeholder-gray-600 transition-colors focus:border-purple-600 focus:outline-none"
-          />
-          <button
-            type="button"
-            onClick={onSubmit}
-            disabled={!newComment.trim()}
-            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-purple-700 text-white transition-colors hover:bg-purple-600 disabled:bg-gray-800 disabled:text-gray-600"
-          >
-            <Send size={15} />
-          </button>
-        </div>
-      </div>
-
-      <div className="space-y-3">
+      <div className="space-y-4">
         {comments.map((comment) => (
           <CommentCard
             key={comment.id}
@@ -65,6 +43,35 @@ export function SpotCommentsSection({
           />
         ))}
       </div>
-    </div>
+
+      {showForm && (
+        <div className="flex gap-2">
+          <input
+            type="text"
+            value={newComment}
+            onChange={(e) => onNewCommentChange(e.target.value)}
+            onKeyDown={(e) => e.key === 'Enter' && handleSubmit()}
+            placeholder="방문 후기를 남겨보세요..."
+            className="flex-1 rounded-xl border border-primary/40 bg-spot-input px-4 py-3 text-sm text-white placeholder:text-spot-dim focus:border-secondary focus:outline-none"
+          />
+          <button
+            type="button"
+            onClick={handleSubmit}
+            disabled={!newComment.trim()}
+            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary text-white disabled:opacity-40"
+          >
+            <Send size={16} />
+          </button>
+        </div>
+      )}
+
+      <button
+        type="button"
+        onClick={() => setShowForm((prev) => !prev)}
+        className="w-full rounded-xl bg-primary py-3.5 text-sm font-semibold text-white transition-colors hover:bg-primary/90"
+      >
+        {showForm ? '닫기' : '후기 작성하기'}
+      </button>
+    </section>
   )
 }
