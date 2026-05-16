@@ -13,36 +13,36 @@ export function SpotHero({ spot }: SpotHeroProps) {
   const [bookmarked, setBookmarked] = useState(false)
 
   return (
-    <div className="relative h-72 overflow-hidden sm:h-96">
+    <div className="relative h-[220px] w-full overflow-hidden">
       <img src={spot.imageUrl} alt={spot.name} className="h-full w-full object-cover" />
-      <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/50" />
 
-      <div className="absolute top-0 right-0 left-0 flex items-center justify-between p-4 pt-6">
+      <div className="absolute top-0 right-0 left-0 flex items-center justify-between p-4">
         <button
           type="button"
           onClick={() => navigate(-1)}
-          className="flex h-10 w-10 items-center justify-center rounded-full bg-black/50 text-white backdrop-blur-sm transition-colors hover:bg-black/70"
+          aria-label="뒤로 가기"
+          className="flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-gray-1 shadow-sm transition-colors hover:bg-white"
         >
           <ChevronLeft size={20} />
         </button>
-        <div className="flex gap-2">
-          <button
-            type="button"
-            onClick={() => setBookmarked(!bookmarked)}
-            className="flex h-10 w-10 items-center justify-center rounded-full bg-black/50 backdrop-blur-sm transition-colors hover:bg-black/70"
-          >
-            <Heart
-              size={18}
-              className={bookmarked ? 'fill-red-500 text-red-500' : 'text-white'}
-            />
-          </button>
-        </div>
+        <button
+          type="button"
+          onClick={() => setBookmarked(!bookmarked)}
+          aria-label={bookmarked ? '북마크 해제' : '북마크'}
+          className="flex h-9 w-9 items-center justify-center rounded-full bg-white/90 shadow-sm transition-colors hover:bg-white"
+        >
+          <Heart
+            size={18}
+            className={bookmarked ? 'fill-secondary text-secondary' : 'text-gray-1'}
+          />
+        </button>
       </div>
 
       {spot.galleryImages.length > 0 && (
         <div className="absolute right-4 bottom-4">
-          <span className="flex items-center gap-1.5 rounded-full bg-black/60 px-3 py-1.5 text-xs text-gray-300 backdrop-blur-sm">
-            <Images size={12} />
+          <span className="flex items-center gap-1 rounded-full bg-black/50 px-2.5 py-1 text-[11px] text-white backdrop-blur-sm">
+            <Images size={11} />
             +{spot.galleryImages.length}
           </span>
         </div>
