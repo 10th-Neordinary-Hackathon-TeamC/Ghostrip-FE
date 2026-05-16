@@ -1,4 +1,5 @@
 import { ExternalLink } from 'lucide-react'
+// TODO(API): props로 spotId 받아 GET /spots/:spotId/related-contents — RELATED_CONTENTS 제거
 import { RELATED_CONTENTS } from '../../../constants/spot'
 
 export function RelatedContentSection() {
@@ -9,6 +10,7 @@ export function RelatedContentSection() {
         <span className="text-sm text-gray-400">관련 콘텐츠</span>
       </div>
       <div className="space-y-2">
+        {/* TODO(API): relatedContents state (fetch 결과) */}
         {RELATED_CONTENTS.map((item) => (
           <a
             key={item.id}
