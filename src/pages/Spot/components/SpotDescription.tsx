@@ -6,9 +6,6 @@ interface SpotDescriptionProps {
 
 export function SpotDescription({ spot }: SpotDescriptionProps) {
   return (
-    <div className="space-y-2 rounded-xl border border-gray-800 bg-gray-900/40 p-4">
-      <h2 className="text-base text-white">장소 소개</h2>
-      <p className="text-sm leading-relaxed text-gray-400">{spot.description}</p>
-    </div>
+    <p className="px-4 text-sm leading-relaxed text-gray-4">{spot.description}</p>
   )
 }
