@@ -34,7 +34,7 @@ export function useKakaoMap() {
     const baseLevel = map.getLevel();
 
     resizeHandlerRef.current = () => {
-      map.relayout();
+      (map as any).relayout();
       const ratio = window.innerWidth / baseWidth;
       const levelDelta = Math.round(Math.log2(ratio));
       map.setLevel(Math.min(14, Math.max(1, baseLevel - levelDelta)));
