@@ -1,4 +1,29 @@
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
 @import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+
+  --color-primary: #7f1c1d;
+  --color-secondary: #ef4444;
+  --color-tertiary: #ffb3ad;
+
+  --color-spot-bg: #0a0a0a;
+  --color-spot-surface: #1c0b0b;
+  --color-spot-card: #2a1010;
+  --color-spot-input: #141414;
+  --color-spot-muted: #9e9e9e;
+  --color-spot-dim: #6b6b6b;
+
+  --color-gray-1: #ffffff;
+  --color-gray-2: #e4e2e1;
+  --color-gray-3: #adabaa;
+  --color-gray-4: #787776;
+  --color-gray-5: #5f5e5e;
+  --color-gray-6: #474646;
+  --color-gray-7: #313030;
+  --color-gray-8: #1c1b1b;
+}
 
 * {
   box-sizing: border-box;
@@ -6,6 +31,9 @@
 
 body {
   margin: 0;
+  font-family: var(--font-sans);
+  color: var(--color-gray-1);
+  background-color: var(--color-spot-bg);
 }
 
 #root {
