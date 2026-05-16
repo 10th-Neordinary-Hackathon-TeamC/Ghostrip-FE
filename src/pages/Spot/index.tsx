@@ -1,8 +1,8 @@
 import { useRef } from 'react'
 import { useParams } from 'react-router-dom'
-// TODO(API): DUMMY_* 제거 후 apiClient로 fetch
-import { DUMMY_COMMENTS, DUMMY_SPOT } from '../../constants/spot'
-import type { GhostSpot, SpotComment } from '../../types/spot'
+// TODO(API): DUMMY_SPOT 제거 후 apiClient로 fetch
+import { DUMMY_SPOT } from '../../constants/spot'
+import type { GhostSpot } from '../../types/spot'
 import { EntryStatus } from './components/EntryStatus'
 import { HorrorStars } from './components/HorrorStars'
 import { SpotCommentsSection } from './components/SpotCommentsSection'
@@ -15,13 +15,9 @@ import { useSpotComments } from './hooks/useSpotComments'
 
 interface SpotPageProps {
   spot?: GhostSpot
-  initialComments?: SpotComment[]
 }
 
-export default function SpotPage({
-  spot = DUMMY_SPOT,
-  initialComments = DUMMY_COMMENTS,
-}: SpotPageProps) {
+export default function SpotPage({ spot = DUMMY_SPOT }: SpotPageProps) {
   const { spotId } = useParams<{ spotId: string }>()
   const displaySpot = { ...spot, id: spotId ?? spot.id }
   const relatedRef = useRef<HTMLElement>(null)
@@ -30,45 +26,48 @@ export default function SpotPage({
     comments,
     newComment,
     setNewComment,
-    likes,
-    handleLike,
+    isLoading,
+    isSubmitting,
+    error,
+    submitError,
     handleSubmit,
-  } = useSpotComments(initialComments)
+  } = useSpotComments(spotId ?? displaySpot.id)
 
   const scrollToRelated = () => {
     relatedRef.current?.scrollIntoView({ behavior: 'smooth' })
   }
 
   return (
-    <div className="flex min-h-screen justify-center bg-spot-bg">
-      <div className="spot-scroll w-full max-w-[360px] min-h-screen">
+    <div className="flex min-h-screen justify-center bg-black">
+      <div className="spot-scroll w-full max-w-[360px] min-h-screen bg-black">
         <div className="relative">
           <div className="absolute top-0 right-0 left-0 z-10">
             <SpotPageHeader />
           </div>
           <SpotVisual spot={displaySpot} />
         </div>
-        <SpotDetailCard spot={displaySpot} onMoreLegend={scrollToRelated} />
 
-        <div className="flex flex-col gap-10 px-5 pb-14 pt-4">
-        <EntryStatus isAccessible={displaySpot.isAccessible} />
+        <div className="flex flex-col gap-5 px-5 pb-14 pt-5">
+          <SpotDetailCard spot={displaySpot} onMoreLegend={scrollToRelated} />
 
-        <section className="rounded-xl border border-primary/30 bg-spot-surface/80 p-6">
+          <EntryStatus isAccessible={displaySpot.isAccessible} />
+
           <HorrorStars level={displaySpot.horrorIndex} />
-        </section>
 
-        <ImageGallery images={displaySpot.galleryImages} spotName={displaySpot.name} />
+          <ImageGallery images={displaySpot.galleryImages} spotName={displaySpot.name} />
 
-        <RelatedContentSection ref={relatedRef} />
+          <RelatedContentSection ref={relatedRef} />
 
-        <SpotCommentsSection
-          comments={comments}
-          newComment={newComment}
-          likes={likes}
-          onNewCommentChange={setNewComment}
-          onSubmit={handleSubmit}
-          onLike={handleLike}
-        />
+          <SpotCommentsSection
+            comments={comments}
+            newComment={newComment}
+            isLoading={isLoading}
+            isSubmitting={isSubmitting}
+            error={error}
+            submitError={submitError}
+            onNewCommentChange={setNewComment}
+            onSubmit={handleSubmit}
+          />
         </div>
       </div>
     </div>

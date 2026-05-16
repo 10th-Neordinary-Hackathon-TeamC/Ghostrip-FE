@@ -12,7 +12,7 @@ export const SPOT_DISPLAY_META = {
 
 /** @deprecated API 연동 후 제거 — GET /spots/:spotId 응답으로 대체 */
 export const DUMMY_SPOT: GhostSpot = {
-  id: 'spot-123',
+  id: '1',
   name: '곤지암 정신병원',
   imageUrl:
     'https://images.unsplash.com/photo-1638008944246-389bebaa0e08?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixlib=rb-4.1.0&q=80&w=1080',

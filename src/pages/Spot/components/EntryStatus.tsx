@@ -1,36 +1,33 @@
-import { AlertTriangle, CheckCircle, XCircle } from 'lucide-react'
+import { AlertTriangle, CheckCircle } from 'lucide-react'
 
 interface EntryStatusProps {
   isAccessible: boolean
 }
 
 export function EntryStatus({ isAccessible }: EntryStatusProps) {
+  if (isAccessible) {
+    return (
+      <div className="flex items-start gap-3 rounded-xl border border-gray-7/80 bg-spot-input/80 px-4 py-4">
+        <CheckCircle size={18} className="mt-0.5 shrink-0 text-gray-3" />
+        <div className="min-w-0 flex-1 space-y-1 px-0.5 py-0.5">
+          <p className="text-sm font-semibold text-white">출입 가능</p>
+          <p className="text-xs leading-relaxed text-spot-muted">
+            현재 일반인 출입이 허용된 장소입니다
+          </p>
+        </div>
+      </div>
+    )
+  }
+
   return (
-    <div
-      className={`flex items-start gap-4 rounded-xl border px-5 py-5 ${
-        isAccessible
-          ? 'border-primary/40 bg-spot-surface/60'
-          : 'border-secondary/40 bg-secondary/10'
-      }`}
-    >
-      {isAccessible ? (
-        <CheckCircle size={20} className="mt-0.5 shrink-0 text-primary" />
-      ) : (
-        <XCircle size={20} className="mt-0.5 shrink-0 text-secondary" />
-      )}
-      <div className="spot-text-box min-w-0 flex-1 space-y-1.5">
-        <p className={`text-sm font-semibold ${isAccessible ? 'text-gray-2' : 'text-secondary'}`}>
-          {isAccessible ? '출입 가능' : '출입 불가'}
-        </p>
-        <p className="text-xs leading-relaxed text-spot-muted">
-          {isAccessible
-            ? '현재 일반인 출입이 허용된 장소입니다'
-            : '사유지 또는 위험 구역으로 출입이 금지됩니다'}
+    <div className="flex items-start gap-3 rounded-xl border border-primary/50 bg-primary/25 px-4 py-4">
+      <AlertTriangle size={18} className="mt-0.5 shrink-0 text-white" fill="currentColor" />
+      <div className="min-w-0 flex-1 space-y-1 px-0.5 py-0.5">
+        <p className="text-sm font-semibold text-white">방문 주의</p>
+        <p className="text-xs leading-relaxed text-gray-2">
+          사유지 또는 위험 구역으로 출입이 금지됩니다
         </p>
       </div>
-      {!isAccessible && (
-        <AlertTriangle size={16} className="mt-1 shrink-0 text-secondary" />
-      )}
     </div>
   )
 }

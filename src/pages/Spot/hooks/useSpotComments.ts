@@ -1,54 +1,69 @@
-import { useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
+import { createCommentBySpotId, fetchCommentsBySpotId } from '../../../apis/comment'
 import type { SpotComment } from '../../../types/spot'
 
-interface LikeState {
-  [id: string]: { liked: boolean; count: number }
-}
-
-// TODO(API): GET /spots/:spotId/comments 응답의 likeCount, isLiked로 초기화
-function createInitialLikes(comments: SpotComment[]): LikeState {
-  return Object.fromEntries(comments.map((c) => [c.id, { liked: false, count: 0 }]))
-}
-
-export function useSpotComments(initialComments: SpotComment[]) {
-  const [comments, setComments] = useState<SpotComment[]>(initialComments)
+export function useSpotComments(spotId: string | undefined) {
+  const [comments, setComments] = useState<SpotComment[]>([])
   const [newComment, setNewComment] = useState('')
-  const [likes, setLikes] = useState<LikeState>(() => createInitialLikes(initialComments))
+  const [isLoading, setIsLoading] = useState(true)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const [submitError, setSubmitError] = useState<string | null>(null)
 
-  // TODO(API): POST /spots/:spotId/comments/:commentId/like (또는 DELETE) — 성공 후 setLikes
-  const handleLike = (id: string) => {
-    setLikes((prev) => ({
-      ...prev,
-      [id]: {
-        liked: !prev[id].liked,
-        count: prev[id].liked ? prev[id].count - 1 : prev[id].count + 1,
-      },
-    }))
-  }
-
-  // TODO(API): POST /spots/:spotId/comments { content } — 응답 본문으로 목록 갱신
-  const handleSubmit = () => {
-    if (!newComment.trim()) return
-
-    const newId = `c${Date.now()}`
-    const comment: SpotComment = {
-      id: newId,
-      author: '익명 탐험가', // TODO(API): 로그인 사용자 닉네임 또는 API 응답 author
-      content: newComment.trim(),
-      createdAt: new Date().toISOString().slice(0, 10),
+  const loadComments = useCallback(async () => {
+    if (!spotId) {
+      setComments([])
+      setIsLoading(false)
+      return
     }
 
-    setComments((prev) => [comment, ...prev])
-    setLikes((prev) => ({ ...prev, [newId]: { liked: false, count: 0 } }))
-    setNewComment('')
+    setIsLoading(true)
+    setError(null)
+
+    try {
+      const list = await fetchCommentsBySpotId(spotId)
+      setComments(list)
+    } catch (err) {
+      setComments([])
+      setError(err instanceof Error ? err.message : '댓글을 불러오지 못했습니다.')
+    } finally {
+      setIsLoading(false)
+    }
+  }, [spotId])
+
+  useEffect(() => {
+    loadComments()
+  }, [loadComments])
+
+  const handleSubmit = async (): Promise<boolean> => {
+    const trimmed = newComment.trim()
+    if (!trimmed || !spotId || isSubmitting) return false
+
+    setIsSubmitting(true)
+    setSubmitError(null)
+
+    try {
+      const comment = await createCommentBySpotId(spotId, trimmed)
+      setComments((prev) => [comment, ...prev])
+      setNewComment('')
+      return true
+    } catch (err) {
+      setSubmitError(err instanceof Error ? err.message : '댓글을 등록하지 못했습니다.')
+      return false
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return {
     comments,
     newComment,
     setNewComment,
-    likes,
-    handleLike,
+    isLoading,
+    isSubmitting,
+    error,
+    submitError,
     handleSubmit,
+    refetchComments: loadComments,
   }
 }

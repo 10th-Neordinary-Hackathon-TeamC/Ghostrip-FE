@@ -109,9 +109,9 @@ body {
 /* ── Spot 페이지 텍스트 박스 ── */
 .spot-text-box {
   border-radius: 12px;
-  border: 1px solid rgba(127, 28, 29, 0.28);
-  background: rgba(20, 20, 20, 0.55);
-  padding: 14px 16px;
+  border: 1px solid rgba(75, 75, 76, 0.45);
+  background: rgba(28, 27, 27, 0.85);
+  padding: 16px 18px;
   line-height: 1.65;
 }
 

@@ -1,4 +1,3 @@
-import { Star, ThumbsUp } from 'lucide-react'
 import type { SpotComment } from '../../../types/spot'
 
 const AVATARS: Record<string, string> = {
@@ -9,43 +8,42 @@ const AVATARS: Record<string, string> = {
 
 interface CommentCardProps {
   comment: SpotComment
-  liked: boolean
-  likeCount: number
-  onLike: () => void
 }
 
-export function CommentCard({ comment, liked, likeCount, onLike }: CommentCardProps) {
+export function CommentCard({ comment }: CommentCardProps) {
   const avatar = AVATARS[comment.author] ?? '🌙'
 
   return (
-    <article className="space-y-3">
-      <div className="flex items-center gap-3">
-        <div className="flex h-9 w-9 items-center justify-center rounded-full bg-spot-surface text-lg">
-          {avatar}
-        </div>
-        <div className="min-w-0 flex-1">
-          <p className="text-sm font-semibold text-white">{comment.author}</p>
-          <p className="text-xs text-spot-dim">{comment.createdAt}</p>
-        </div>
-        <div className="flex gap-0.5">
-          {Array.from({ length: 5 }).map((_, i) => (
-            <Star key={i} size={12} className="fill-secondary/80 text-secondary/80" />
-          ))}
-        </div>
-      </div>
-      <div className="spot-text-box">
-        <p className="text-sm leading-relaxed text-spot-muted">{comment.content}</p>
-      </div>
-      <button
-        type="button"
-        onClick={onLike}
-        className={`flex items-center gap-1.5 px-1 text-xs transition-colors ${
-          liked ? 'text-secondary' : 'text-spot-dim hover:text-spot-muted'
-        }`}
+    <article className="flex items-start gap-3">
+      <div
+        className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gray-7 text-base"
+        aria-hidden
       >
-        <ThumbsUp size={12} />
-        <span>{likeCount}</span>
-      </button>
+        {avatar}
+      </div>
+
+      <div className="min-w-0 flex-1 space-y-1 px-0.5 py-0.5">
+        <p className="text-sm font-medium text-white">{comment.author}</p>
+        <p className="text-sm leading-relaxed text-gray-2">{comment.content}</p>
+        <p className="text-[11px] text-spot-dim">{comment.createdAt}</p>
+      </div>
+
+      <div className="flex shrink-0 flex-col items-end gap-1 pt-0.5">
+        {/* TODO(API): PATCH /api/comment/:commentId */}
+        <button
+          type="button"
+          className="text-xs text-spot-dim transition-colors hover:text-gray-3"
+        >
+          수정
+        </button>
+        {/* TODO(API): DELETE /api/comment/:commentId */}
+        <button
+          type="button"
+          className="text-xs text-spot-dim transition-colors hover:text-gray-3"
+        >
+          삭제
+        </button>
+      </div>
     </article>
   )
 }
