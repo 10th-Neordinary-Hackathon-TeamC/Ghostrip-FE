@@ -1,6 +1,12 @@
+@import 'tailwindcss';
+@import './color.css';
+@import './text.css';
+@import './scroll.css';
+
 @font-face {
   font-family: 'Pretendard Variable';
   src: url('../assets/fonts/PretendardVariable.ttf') format('truetype');
+  font-weight: 100 1000;
   font-weight: 100 1000;
   font-style: normal;
   font-display: swap;
@@ -73,6 +79,7 @@
 }
 
 :root {
+  --font-pretendard: 'Pretendard Variable';
   --bg: #13191c;
   --surface: #1e2428;
   --surface2: #2a2f33;
