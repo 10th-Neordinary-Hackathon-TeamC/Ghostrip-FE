@@ -1,4 +1,3 @@
-import { SPOT_DISPLAY_META } from '../../../constants/spot'
 import type { GhostSpot } from '../../../types/spot'
 
 interface SpotVisualProps {
@@ -6,8 +5,6 @@ interface SpotVisualProps {
 }
 
 export function SpotVisual({ spot }: SpotVisualProps) {
-  const displayName = SPOT_DISPLAY_META.category
-
   return (
     <section className="relative w-full">
       <div className="relative aspect-[16/10] w-full overflow-hidden">
@@ -23,7 +20,7 @@ export function SpotVisual({ spot }: SpotVisualProps) {
 
         <div className="absolute right-0 bottom-0 left-0 px-5 pb-5 pt-12">
           <h1 className="text-[28px] leading-tight font-bold tracking-tight text-white">
-            {displayName}
+            {spot.name}
           </h1>
           <div className="mt-2.5 inline-flex max-w-full items-center gap-2 rounded-full bg-primary/90 px-3 py-1.5">
             <span

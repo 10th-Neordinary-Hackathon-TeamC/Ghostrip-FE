@@ -94,7 +94,7 @@ export function SpotCommentsSection({
         <p className="text-sm text-spot-dim">아직 방문 후기가 없습니다.</p>
       )}
 
-      <div className="flex flex-col gap-5">
+      <div className="flex flex-col gap-8">
         {comments.map((comment) => (
           <CommentCard key={comment.id} comment={comment} />
         ))}

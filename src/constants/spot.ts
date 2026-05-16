@@ -23,7 +23,7 @@ export const DUMMY_SPOT: GhostSpot = {
     'https://images.unsplash.com/photo-1542940018-8768f81865f1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixlib=rb-4.1.0&q=80&w=800',
   ],
   address: '경기도 광주시 곤지암읍 경충대로 715',
-  isAccessible: false,
+  visitWarning: '사유지 또는 위험 구역으로 출입이 금지됩니다',
   horrorIndex: 5,
   description:
     '과거 원장이 환자들을 두고 도주했다는 괴담이 얽힌 폐병원. 경기도 광주시에 위치하며 CNN이 선정한 세계 7대 공포 명소에 오를 만큼 악명 높은 장소입니다. 폐쇄된 이후에도 인근 주민들로부터 이상한 소리와 불빛이 목격된다는 제보가 꾸준히 이어지고 있습니다.',

@@ -1,8 +1,5 @@
 import { useRef } from 'react'
 import { useParams } from 'react-router-dom'
-// TODO(API): DUMMY_SPOT 제거 후 apiClient로 fetch
-import { DUMMY_SPOT } from '../../constants/spot'
-import type { GhostSpot } from '../../types/spot'
 import { EntryStatus } from './components/EntryStatus'
 import { HorrorStars } from './components/HorrorStars'
 import { SpotCommentsSection } from './components/SpotCommentsSection'
@@ -12,29 +9,45 @@ import { SpotDetailCard } from './components/SpotDetailCard'
 import { SpotPageHeader } from './components/SpotPageHeader'
 import { SpotVisual } from './components/SpotVisual'
 import { useSpotComments } from './hooks/useSpotComments'
+import { useSpotDetail } from './hooks/useSpotDetail'
 
-interface SpotPageProps {
-  spot?: GhostSpot
-}
-
-export default function SpotPage({ spot = DUMMY_SPOT }: SpotPageProps) {
+export default function SpotPage() {
   const { spotId } = useParams<{ spotId: string }>()
-  const displaySpot = { ...spot, id: spotId ?? spot.id }
   const relatedRef = useRef<HTMLElement>(null)
+
+  const { spot, relatedContents, isLoading, error } = useSpotDetail(spotId)
 
   const {
     comments,
     newComment,
     setNewComment,
-    isLoading,
+    isLoading: isCommentsLoading,
     isSubmitting,
-    error,
+    error: commentsError,
     submitError,
     handleSubmit,
-  } = useSpotComments(spotId ?? displaySpot.id)
+  } = useSpotComments(spotId)
 
   const scrollToRelated = () => {
     relatedRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }
+
+  if (isLoading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-black">
+        <p className="text-sm text-spot-dim">?? ??? ???? ?</p>
+      </div>
+    )
+  }
+
+  if (error || !spot) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-black px-5">
+        <p className="text-center text-sm text-primary">
+          {error ?? '?? ??? ??? ? ????.'}
+        </p>
+      </div>
+    )
   }
 
   return (
@@ -44,26 +57,26 @@ export default function SpotPage({ spot = DUMMY_SPOT }: SpotPageProps) {
           <div className="absolute top-0 right-0 left-0 z-10">
             <SpotPageHeader />
           </div>
-          <SpotVisual spot={displaySpot} />
+          <SpotVisual spot={spot} />
         </div>
 
         <div className="flex flex-col gap-5 px-5 pb-14 pt-5">
-          <SpotDetailCard spot={displaySpot} onMoreLegend={scrollToRelated} />
+          <SpotDetailCard spot={spot} onMoreLegend={scrollToRelated} />
 
-          <EntryStatus isAccessible={displaySpot.isAccessible} />
+          <EntryStatus visitWarning={spot.visitWarning} />
 
-          <HorrorStars level={displaySpot.horrorIndex} />
+          <HorrorStars level={spot.horrorIndex} />
 
-          <ImageGallery images={displaySpot.galleryImages} spotName={displaySpot.name} />
+          <ImageGallery images={spot.galleryImages} spotName={spot.name} />
 
-          <RelatedContentSection ref={relatedRef} />
+          <RelatedContentSection ref={relatedRef} items={relatedContents} />
 
           <SpotCommentsSection
             comments={comments}
             newComment={newComment}
-            isLoading={isLoading}
+            isLoading={isCommentsLoading}
             isSubmitting={isSubmitting}
-            error={error}
+            error={commentsError}
             submitError={submitError}
             onNewCommentChange={setNewComment}
             onSubmit={handleSubmit}

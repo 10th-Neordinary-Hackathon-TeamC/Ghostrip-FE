@@ -4,9 +4,11 @@ export interface GhostSpot {
   imageUrl: string
   galleryImages: string[]
   address: string
-  isAccessible: boolean
+  visitWarning: string
+  viewCount?: number
   horrorIndex: number
   description: string
+  kakaoPlaceUrl?: string
 }
 
 export interface RelatedContent {

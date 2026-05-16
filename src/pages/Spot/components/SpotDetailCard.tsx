@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { ChevronRight } from 'lucide-react'
-import { SPOT_DISPLAY_META } from '../../../constants/spot'
 import type { GhostSpot } from '../../../types/spot'
 
 interface SpotDetailCardProps {
@@ -10,8 +9,6 @@ interface SpotDetailCardProps {
 
 export function SpotDetailCard({ spot, onMoreLegend }: SpotDetailCardProps) {
   const [expanded, setExpanded] = useState(false)
-  const displayName = SPOT_DISPLAY_META.category
-
   return (
     <section className="space-y-3">
       <div className="flex items-center gap-2 px-0.5">
@@ -19,7 +16,7 @@ export function SpotDetailCard({ spot, onMoreLegend }: SpotDetailCardProps) {
           className="h-2 w-2 shrink-0 rounded-full bg-secondary shadow-[0_0_8px_rgba(239,68,68,0.85)]"
           aria-hidden
         />
-        <h2 className="text-sm font-semibold text-white">{displayName}이란..</h2>
+        <h2 className="text-sm font-semibold text-white">{spot.name}이란..</h2>
       </div>
 
       <div className="spot-text-box">

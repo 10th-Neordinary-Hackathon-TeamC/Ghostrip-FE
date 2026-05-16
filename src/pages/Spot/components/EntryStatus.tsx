@@ -1,11 +1,13 @@
 import { AlertTriangle, CheckCircle } from 'lucide-react'
 
 interface EntryStatusProps {
-  isAccessible: boolean
+  visitWarning?: string
 }
 
-export function EntryStatus({ isAccessible }: EntryStatusProps) {
-  if (isAccessible) {
+export function EntryStatus({ visitWarning }: EntryStatusProps) {
+  const hasWarning = Boolean(visitWarning?.trim())
+
+  if (!hasWarning) {
     return (
       <div className="flex items-start gap-3 rounded-xl border border-gray-7/80 bg-spot-input/80 px-4 py-4">
         <CheckCircle size={18} className="mt-0.5 shrink-0 text-gray-3" />
@@ -24,9 +26,7 @@ export function EntryStatus({ isAccessible }: EntryStatusProps) {
       <AlertTriangle size={18} className="mt-0.5 shrink-0 text-white" fill="currentColor" />
       <div className="min-w-0 flex-1 space-y-1 px-0.5 py-0.5">
         <p className="text-sm font-semibold text-white">방문 주의</p>
-        <p className="text-xs leading-relaxed text-gray-2">
-          사유지 또는 위험 구역으로 출입이 금지됩니다
-        </p>
+        <p className="text-xs leading-relaxed text-gray-2">{visitWarning}</p>
       </div>
     </div>
   )
