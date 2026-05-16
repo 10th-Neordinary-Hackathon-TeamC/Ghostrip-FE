@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { useRecentSearches } from '../../hooks/useRecentSearches';
+import { useRecentSearches } from '@/hooks/useRecentSearches';
+import { BestSpotsDrawer } from './components/BestSpotsDrawer';
 import SearchBar from './components/SearchBar';
 import SearchScreen from './components/SearchScreen';
 import { useKakaoMap } from './hooks/useKakaoMap';
@@ -51,6 +52,8 @@ export default function HomePage() {
           </div>
         )}
       </div>
+
+      <BestSpotsDrawer />
 
       {isSearchOpen && (
         <SearchScreen
