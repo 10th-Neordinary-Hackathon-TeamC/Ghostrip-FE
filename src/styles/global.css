@@ -399,7 +399,6 @@ body {
   inset: 0;
 }
 
-<<<<<<< HEAD
 /* ── 커스텀 오버레이 ── */
 .spot-overlay {
   display: flex;
@@ -496,8 +495,6 @@ body {
 }
 
 /* ── 메인 오버레이 ── */
-=======
->>>>>>> e8e7f9968bd48d939a8453ccae70db9307a7d263
 #main-overlay {
   position: fixed;
   inset: 0;
@@ -507,7 +504,6 @@ body {
   padding: 52px 16px 36px;
 }
 
-<<<<<<< HEAD
 /* ── 사진 생성 버튼 ── */
 #photo-btn-wrap {
   pointer-events: all;
@@ -543,8 +539,6 @@ body {
 }
 
 /* ── 검색 트리거 ── */
-=======
->>>>>>> e8e7f9968bd48d939a8453ccae70db9307a7d263
 #search-trigger {
   pointer-events: all;
   display: flex;
@@ -578,7 +572,6 @@ body {
   flex-shrink: 0;
 }
 
-<<<<<<< HEAD
 #search-back-btn {
   background: none;
   border: none;
@@ -591,8 +584,6 @@ body {
 }
 
 /* ── 검색 화면 ── */
-=======
->>>>>>> e8e7f9968bd48d939a8453ccae70db9307a7d263
 #search-screen {
   position: fixed;
   inset: 0;
