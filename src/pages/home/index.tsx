@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useRecentSearches } from '@/hooks/useRecentSearches';
+import { getSpotImage } from '../../constants';
 import { BestSpotsDrawer } from './components/BestSpotsDrawer';
 import SearchBar from './components/SearchBar';
 import SearchScreen from './components/SearchScreen';
@@ -23,7 +24,11 @@ export default function HomePage() {
 
   return (
     <>
-      <div id="map" ref={mapContainerRef} />
+      <div
+        id="map"
+        ref={mapContainerRef}
+        className={activePlace && getSpotImage(activePlace.place_name) ? 'spot-active' : undefined}
+      />
 
       <div id="main-overlay">
         <SearchBar
