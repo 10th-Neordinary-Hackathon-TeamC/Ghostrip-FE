@@ -10,24 +10,23 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
+*.tsbuildinfo
 *.local
+
+# Env
+.vercel
+.env
+.env.*
+!.env.example
 
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
 .idea
 .DS_Store
+Thumbs.db
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
-
-<<<<<<< HEAD
-.env
-.env.local
-=======
-.vercel
-.env
-.env.*
->>>>>>> 5b2ceebeda4429db226724a632b67e353685452a
