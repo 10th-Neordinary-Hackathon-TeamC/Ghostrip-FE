@@ -11,6 +11,7 @@ interface SpotCommentsSectionProps {
   onLike: (id: string) => void
 }
 
+// TODO(API): comments·likes는 부모(SpotPage + useSpotComments)에서 API fetch/mutation 후 props로 전달
 export function SpotCommentsSection({
   comments,
   newComment,
