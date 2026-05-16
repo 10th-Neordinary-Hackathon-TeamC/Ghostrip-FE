@@ -29,10 +29,10 @@ export function SpotCommentsSection({
   }
 
   return (
-    <section className="space-y-4 pb-4">
+    <section className="space-y-6 pb-2">
       <h2 className="text-base font-semibold text-white">방문 후기</h2>
 
-      <div className="space-y-4">
+      <div className="flex flex-col gap-7">
         {comments.map((comment) => (
           <CommentCard
             key={comment.id}

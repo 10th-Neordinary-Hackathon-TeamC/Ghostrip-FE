@@ -11,7 +11,6 @@ import { RelatedContentSection } from './components/RelatedContentSection'
 import { SpotDetailCard } from './components/SpotDetailCard'
 import { SpotPageHeader } from './components/SpotPageHeader'
 import { SpotVisual } from './components/SpotVisual'
-import { SpotLocation } from './components/SpotLocation'
 import { useSpotComments } from './hooks/useSpotComments'
 
 interface SpotPageProps {
@@ -42,23 +41,23 @@ export default function SpotPage({
 
   return (
     <div className="flex min-h-screen justify-center bg-spot-bg">
-      <div className="w-full max-w-[360px] min-h-screen">
-        <SpotPageHeader />
-        <SpotVisual spot={displaySpot} />
+      <div className="spot-scroll w-full max-w-[360px] min-h-screen">
+        <div className="relative">
+          <div className="absolute top-0 right-0 left-0 z-10">
+            <SpotPageHeader />
+          </div>
+          <SpotVisual spot={displaySpot} />
+        </div>
         <SpotDetailCard spot={displaySpot} onMoreLegend={scrollToRelated} />
 
-        <div className="space-y-5 px-4 pb-10 pt-2">
+        <div className="flex flex-col gap-10 px-5 pb-14 pt-4">
         <EntryStatus isAccessible={displaySpot.isAccessible} />
 
-        <section className="rounded-xl border border-primary/30 bg-spot-surface/80 p-4">
+        <section className="rounded-xl border border-primary/30 bg-spot-surface/80 p-6">
           <HorrorStars level={displaySpot.horrorIndex} />
         </section>
 
-        <SpotLocation spot={displaySpot} />
-
-        {displaySpot.galleryImages.length > 0 && (
-          <ImageGallery images={displaySpot.galleryImages} spotName={displaySpot.name} />
-        )}
+        <ImageGallery images={displaySpot.galleryImages} spotName={displaySpot.name} />
 
         <RelatedContentSection ref={relatedRef} />
 

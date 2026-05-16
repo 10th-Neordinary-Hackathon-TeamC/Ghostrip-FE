@@ -18,7 +18,7 @@ export function CommentCard({ comment, liked, likeCount, onLike }: CommentCardPr
   const avatar = AVATARS[comment.author] ?? '🌙'
 
   return (
-    <article className="space-y-2 border-b border-primary/20 pb-4 last:border-0 last:pb-0">
+    <article className="space-y-3">
       <div className="flex items-center gap-3">
         <div className="flex h-9 w-9 items-center justify-center rounded-full bg-spot-surface text-lg">
           {avatar}
@@ -33,11 +33,13 @@ export function CommentCard({ comment, liked, likeCount, onLike }: CommentCardPr
           ))}
         </div>
       </div>
-      <p className="text-sm leading-relaxed text-spot-muted">{comment.content}</p>
+      <div className="spot-text-box">
+        <p className="text-sm leading-relaxed text-spot-muted">{comment.content}</p>
+      </div>
       <button
         type="button"
         onClick={onLike}
-        className={`flex items-center gap-1.5 text-xs transition-colors ${
+        className={`flex items-center gap-1.5 px-1 text-xs transition-colors ${
           liked ? 'text-secondary' : 'text-spot-dim hover:text-spot-muted'
         }`}
       >

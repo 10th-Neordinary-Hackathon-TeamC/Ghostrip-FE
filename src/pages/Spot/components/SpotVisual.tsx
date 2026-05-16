@@ -1,4 +1,3 @@
-import { MapPin } from 'lucide-react'
 import { SPOT_DISPLAY_META } from '../../../constants/spot'
 import type { GhostSpot } from '../../../types/spot'
 
@@ -7,22 +6,33 @@ interface SpotVisualProps {
 }
 
 export function SpotVisual({ spot }: SpotVisualProps) {
+  const displayName = SPOT_DISPLAY_META.category
+
   return (
-    <section className="flex flex-col items-center gap-4 px-4 pt-2 pb-4">
-      <span className="rounded-full bg-secondary px-5 py-1.5 text-xs font-semibold text-white">
-        {SPOT_DISPLAY_META.category}
-      </span>
-
-      <div className="flex h-16 w-16 items-center justify-center rounded-2xl border border-primary/40 bg-spot-surface shadow-[0_0_24px_rgba(239,68,68,0.35)]">
-        <MapPin size={28} className="text-secondary drop-shadow-[0_0_8px_rgba(239,68,68,0.8)]" />
-      </div>
-
-      <div className="w-full overflow-hidden rounded-xl border-2 border-secondary">
+    <section className="relative w-full">
+      <div className="relative aspect-[16/10] w-full overflow-hidden">
         <img
           src={spot.imageUrl}
           alt={spot.name}
-          className="aspect-[4/3] w-full object-cover"
+          className="h-full w-full object-cover"
         />
+        <div
+          className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-black/15"
+          aria-hidden
+        />
+
+        <div className="absolute right-0 bottom-0 left-0 px-5 pb-6 pt-16">
+          <h1 className="text-[26px] leading-tight font-bold tracking-tight text-white">
+            {displayName}
+          </h1>
+          <div className="mt-3 inline-flex max-w-full items-center gap-2 rounded-full bg-primary px-3.5 py-2 shadow-[0_2px_12px_rgba(127,28,29,0.5)]">
+            <span
+              className="h-1.5 w-1.5 shrink-0 rounded-full bg-tertiary shadow-[0_0_6px_rgba(255,179,173,0.9)]"
+              aria-hidden
+            />
+            <span className="truncate text-xs leading-snug text-white">{spot.address}</span>
+          </div>
+        </div>
       </div>
     </section>
   )
