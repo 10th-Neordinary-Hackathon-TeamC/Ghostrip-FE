@@ -3,7 +3,6 @@ import HomePage from './pages/home';
 import NotFoundPage from './pages/NotFound';
 import SpotPage from './pages/spot-detail';
 import PhotoGeneratePage from './pages/photo-generate';
-import SpotImageUploadTestPage from './pages/spot-image-upload-test';
 
 export default function App() {
   return (
@@ -13,8 +12,7 @@ export default function App() {
 
         <Route path="/photo-generate" element={<PhotoGeneratePage />} />
         <Route path="/spots/:spotId" element={<SpotPage />} />
-        <Route path="/test/spot-image-upload" element={<SpotImageUploadTestPage />} />
-        <Route path="*" element={<NotFoundPage />} />
+<Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
   );
