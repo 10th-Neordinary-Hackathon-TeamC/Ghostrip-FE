@@ -30,6 +30,6 @@ export default function HomePage() {
       >
         {DUMMY_SPOT.name} 상세 보기
       </Link>
-    </motion.div>
+    </div>
   )
 }
