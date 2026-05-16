@@ -9,6 +9,7 @@ interface SpotHeroProps {
 
 export function SpotHero({ spot }: SpotHeroProps) {
   const navigate = useNavigate()
+  // TODO(API): GET /spots/:spotId/bookmark — 초기값, POST/DELETE로 토글
   const [bookmarked, setBookmarked] = useState(false)
 
   return (
@@ -38,6 +39,7 @@ export function SpotHero({ spot }: SpotHeroProps) {
         </div>
       </div>
 
+      {/* TODO(API): spot.rankingBadge 등 API 필드 — 하드코딩 배지 제거 */}
       <div className="absolute bottom-4 left-4">
         <span className="flex items-center gap-1.5 rounded-full bg-red-600/90 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur-sm">
           <Flame size={13} />
