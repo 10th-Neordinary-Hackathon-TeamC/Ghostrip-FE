@@ -2,7 +2,13 @@ import type { GhostSpot, RelatedContent, SpotComment } from '../types/spot'
 
 export const HORROR_LABELS = ['', '약간 으스스', '좀 무서움', '꽤 무서움', '매우 무서움', '공포 극한'] as const
 
-export const HORROR_COLORS = ['', '#00e676', '#ffd600', '#ff6d00', '#ff3d00', '#ff1744'] as const
+export const HORROR_COLORS = ['', '#ADABAA', '#787776', '#EF4444', '#7F1C1D', '#7F1C1D'] as const
+
+/** UI 표시용 — API 연동 시 GhostSpot 필드로 이전 */
+export const SPOT_DISPLAY_META = {
+  category: '살묵지',
+  rating: 4.5,
+} as const
 
 /** @deprecated API 연동 후 제거 — GET /spots/:spotId 응답으로 대체 */
 export const DUMMY_SPOT: GhostSpot = {
