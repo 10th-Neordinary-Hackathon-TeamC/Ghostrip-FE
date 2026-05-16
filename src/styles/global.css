@@ -140,6 +140,230 @@ body {
   background: #0a0a0a;
 }
 
+/* ── Best Spots Drawer ── */
+#best-spots-drawer-container {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+#best-spots-drawer {
+  pointer-events: all;
+  background: #1c0b0b;
+  border-radius: 20px 20px 0 0;
+  height: 240px;
+  transition:
+    height 0.4s cubic-bezier(0.32, 0.72, 0, 1),
+    border-radius 0.4s cubic-bezier(0.32, 0.72, 0, 1),
+    background 0.4s;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+#best-spots-drawer-container.expanded {
+  pointer-events: all;
+}
+
+#best-spots-drawer-container.expanded #best-spots-drawer {
+  height: 100dvh;
+  border-radius: 0;
+  background: var(--bg);
+  overflow-y: auto;
+}
+
+/* ── 핸들 ── */
+#drawer-handle-wrap {
+  display: flex;
+  justify-content: center;
+  padding: 10px 0 6px;
+  flex-shrink: 0;
+}
+
+#drawer-handle {
+  width: 36px;
+  height: 4px;
+  background: rgba(255, 179, 173, 0.2);
+  border-radius: 999px;
+}
+
+/* ── 접힌 상태 헤더 ── */
+#drawer-compact-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 16px 12px;
+  flex-shrink: 0;
+}
+
+#drawer-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+
+#drawer-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+/* ── 확장 상태 헤더 ── */
+#drawer-full-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 52px 16px 16px;
+  flex-shrink: 0;
+}
+
+#drawer-back-btn {
+  background: none;
+  border: none;
+  color: var(--text);
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+#drawer-full-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+/* ── 콘텐츠 영역 ── */
+#drawer-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0 16px 24px;
+}
+
+/* ── 접힌 상태: 가로 3개 카드 ── */
+#drawer-horizontal-list {
+  display: flex;
+  gap: 10px;
+}
+
+.drawer-compact-card {
+  flex: 1;
+  min-width: 0;
+  cursor: pointer;
+}
+
+.drawer-compact-card:active {
+  opacity: 0.75;
+}
+
+.drawer-compact-img-wrap {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.drawer-compact-img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  display: block;
+}
+
+.drawer-compact-img--empty {
+  background: linear-gradient(135deg, #2a1010, #1c0b0b);
+}
+
+.drawer-compact-name {
+  font-size: 12px;
+  font-weight: 500;
+  color: #e4e2e1;
+  text-align: center;
+  padding: 6px 2px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── 공통: 랭크 뱃지 ── */
+.drawer-rank-badge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #7f1c1d;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0 0 6px 0;
+}
+
+/* ── 펼친 상태: 2열 그리드 ── */
+#drawer-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  padding-top: 4px;
+}
+
+.drawer-grid-card {
+  cursor: pointer;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #1c1b1b;
+  transition: transform 0.15s;
+}
+
+.drawer-grid-card:active {
+  transform: scale(0.97);
+}
+
+.drawer-grid-img-wrap {
+  position: relative;
+}
+
+.drawer-grid-img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+}
+
+.drawer-grid-img--empty {
+  aspect-ratio: 4 / 3;
+  background: linear-gradient(135deg, #2a1010, #1c0b0b);
+}
+
+.drawer-grid-footer {
+  background: #1c0b0b;
+  padding: 10px 10px 12px;
+  text-align: center;
+}
+
+.drawer-grid-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #e4e2e1;
+}
+
+/* ── 로딩 상태 ── */
+#drawer-loading {
+  color: var(--text-muted);
+  font-size: 13px;
+  text-align: center;
+  padding: 24px 0;
+}
+
 .spot-scroll {
   scrollbar-width: thin;
   scrollbar-color: #ef4444 #141414;
