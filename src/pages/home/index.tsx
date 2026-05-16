@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useRecentSearches } from '@/hooks/useRecentSearches';
 import { getSpotImage } from '../../constants';
 import { BestSpotsDrawer } from './components/BestSpotsDrawer';
+import { SpotSearchDrawer } from './components/SpotSearchDrawer';
 import SearchBar from './components/SearchBar';
 import SearchScreen from './components/SearchScreen';
 import { useKakaoMap } from './hooks/useKakaoMap';
@@ -58,7 +59,11 @@ export default function HomePage() {
         )}
       </div>
 
-      <BestSpotsDrawer />
+      {activePlace ? (
+        <SpotSearchDrawer activePlace={activePlace} />
+      ) : (
+        <BestSpotsDrawer />
+      )}
 
       {isSearchOpen && (
         <SearchScreen
